@@ -1,0 +1,14 @@
+
+--------------------------
+Base: USD
+Moneda elegida: CLP
+Tasa de cambio: 949.9029
+Cantidad de USD: 10.0
+Total convertido: 9499.029 CLP
+-----
+Algunas otras tasas importantes:
+CLP: 949.9029
+EUR: 0.8544
+PEN: 3.5481
+JPY: 146.2904
+MXN: 18.6225
