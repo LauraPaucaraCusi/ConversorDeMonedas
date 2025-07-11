@@ -1,33 +1,39 @@
-# Conversor de Monedas
+# 💱 Conversor de Monedas
 
-Este proyecto en Java consume una API pública de tasas de cambio para convertir montos desde USD a diferentes monedas.  
-Permite al usuario ingresar el código de la moneda y la cantidad en USD para obtener el equivalente convertido.
+Proyecto en Java que consume la API pública de tasas de cambio de [ExchangeRate-API](https://www.exchangerate-api.com/) para convertir montos desde USD a otras monedas.
 
-## Funcionalidades
-
-- Consulta tasas de cambio en tiempo real desde [ExchangeRate-API](https://www.exchangerate-api.com/).
-- Conversión de montos USD a monedas seleccionadas.
-- Guarda un historial de conversiones en un archivo `tasas.txt`.
-
-## Requisitos
-
-- Java 11 o superior.
-- Biblioteca Gson para manejo de JSON (`gson-2.10.1.jar` incluida en `/lib`).
-- Conexión a Internet para consultar la API.
-
-## Cómo ejecutar
-
-1. Clonar o descargar el repositorio.
-2. Abrir el proyecto en IntelliJ IDEA u otro IDE.
-3. Ejecutar la clase `PruebaAPI.java`.
-4. Seguir las instrucciones en consola para realizar conversiones.
-
-## Autor
-
-Laura Paucara  
-[https://github.com/LauraPaucaraCusi](https://github.com/LauraPaucaraCusi)
+✨ Desarrollado como parte del desafío de programación de **Alura Latam**.
 
 ---
 
-*Proyecto desarrollado como parte del desafío de programación en Alura Latam.*
-~~~~
+## 🚀 Funcionalidades
+
+✅ Consulta tasas de cambio en tiempo real  
+✅ Conversión de montos desde USD a monedas seleccionadas  
+✅ Guarda historial de conversiones en un archivo `tasas.txt`  
+✅ Interfaz por consola para ingreso de datos
+
+---
+
+## 🛠 Tecnologías y herramientas
+
+- Java 11 o superior
+- Biblioteca [Gson](https://github.com/google/gson) para parseo de JSON (`gson-2.10.1.jar` incluida en `/lib`)
+- API pública de ExchangeRate-API
+- IDE utilizado: IntelliJ IDEA
+
+---
+
+## 🧰 Requisitos para ejecutar
+
+- Java 11 o superior instalado
+- Conexión a Internet para consultar la API
+- Archivo `gson-2.10.1.jar` en la carpeta `lib`
+
+---
+
+## ⚙️ Cómo ejecutar
+
+1. Clonar o descargar este repositorio:
+   ```bash
+   git clone https://github.com/LauraPaucaraCusi/ConversorDeMonedas.git
