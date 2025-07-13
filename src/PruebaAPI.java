@@ -5,6 +5,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import com.google.gson.Gson;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PruebaAPI {
     public static void main(String[] args) {
@@ -44,9 +46,15 @@ public class PruebaAPI {
                     double resultado = cantidadUSD * tasa;
                     System.out.println("💰 " + cantidadUSD + " USD equivalen a " + resultado + " " + codigoMoneda);
 
-                    // Sobrescribir el archivo con solo la última consulta
-                    FileWriter writer = new FileWriter("tasas.txt"); // Sin 'true' para sobrescribir
-                    writer.write("--------------------------\n");
+                    // Obtener fecha y hora actual
+                    LocalDateTime now = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String timestamp = now.format(formatter);
+
+                    // Guardar en tasas.txt
+                    FileWriter writer = new FileWriter("tasas.txt", true);
+                    writer.write("\n--------------------------\n");
+                    writer.write("Fecha y hora: " + timestamp + "\n");
                     writer.write("Base: " + exchange.getBase_code() + "\n");
                     writer.write("Moneda elegida: " + codigoMoneda + "\n");
                     writer.write("Tasa de cambio: " + tasa + "\n");

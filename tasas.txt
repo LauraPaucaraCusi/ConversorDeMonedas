@@ -12,3 +12,18 @@ EUR: 0.8544
 PEN: 3.5481
 JPY: 146.2904
 MXN: 18.6225
+
+--------------------------
+Fecha y hora: 2025-07-13 08:03:05
+Base: USD
+Moneda elegida: CLP
+Tasa de cambio: 950.0993
+Cantidad de USD: 10.0
+Total convertido: 9500.993 CLP
+-----
+Algunas otras tasas importantes:
+CLP: 950.0993
+EUR: 0.8555
+PEN: 3.5501
+JPY: 147.1678
+MXN: 18.6595
