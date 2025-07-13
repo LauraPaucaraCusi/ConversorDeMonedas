@@ -41,32 +41,36 @@ public class PruebaAPI {
                     System.out.println("✅ La tasa de cambio de " + codigoMoneda + " es: " + tasa);
                     System.out.println("🔹 Ingresa la cantidad de USD que deseas convertir a " + codigoMoneda + ":");
                     double cantidadUSD = scanner.nextDouble();
-                    scanner.nextLine(); // limpiar salto de línea
+                    scanner.nextLine(); // limpiar el salto de línea
 
                     double resultado = cantidadUSD * tasa;
                     System.out.println("💰 " + cantidadUSD + " USD equivalen a " + resultado + " " + codigoMoneda);
 
-                    // Obtener fecha y hora actual
-                    LocalDateTime now = LocalDateTime.now();
+                    // 🕒 Guardar en el archivo tasas.txt con fecha y más monedas
+                    LocalDateTime ahora = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    String timestamp = now.format(formatter);
+                    String fechaHora = ahora.format(formatter);
 
-                    // Guardar en tasas.txt
-                    FileWriter writer = new FileWriter("tasas.txt", true);
-                    writer.write("\n--------------------------\n");
-                    writer.write("Fecha y hora: " + timestamp + "\n");
+                    FileWriter writer = new FileWriter("tasas.txt", true); // true para agregar
+                    writer.write("\n==============================\n");
+                    writer.write("🕒 Fecha y hora: " + fechaHora + "\n");
                     writer.write("Base: " + exchange.getBase_code() + "\n");
                     writer.write("Moneda elegida: " + codigoMoneda + "\n");
                     writer.write("Tasa de cambio: " + tasa + "\n");
                     writer.write("Cantidad de USD: " + cantidadUSD + "\n");
                     writer.write("Total convertido: " + resultado + " " + codigoMoneda + "\n");
-                    writer.write("-----\n");
-                    writer.write("Algunas otras tasas importantes:\n");
+                    writer.write("----- Otras tasas importantes -----\n");
                     writer.write("CLP: " + exchange.getConversion_rates().get("CLP") + "\n");
                     writer.write("EUR: " + exchange.getConversion_rates().get("EUR") + "\n");
                     writer.write("PEN: " + exchange.getConversion_rates().get("PEN") + "\n");
                     writer.write("JPY: " + exchange.getConversion_rates().get("JPY") + "\n");
                     writer.write("MXN: " + exchange.getConversion_rates().get("MXN") + "\n");
+                    writer.write("GBP: " + exchange.getConversion_rates().get("GBP") + "\n");
+                    writer.write("ARS: " + exchange.getConversion_rates().get("ARS") + "\n");
+                    writer.write("BRL: " + exchange.getConversion_rates().get("BRL") + "\n");
+                    writer.write("CAD: " + exchange.getConversion_rates().get("CAD") + "\n");
+                    writer.write("CHF: " + exchange.getConversion_rates().get("CHF") + "\n");
+                    writer.write("==============================\n");
                     writer.close();
 
                     System.out.println("✅ Datos guardados en tasas.txt");
