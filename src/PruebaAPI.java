@@ -1,89 +1,58 @@
-import java.util.Scanner;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import com.google.gson.Gson;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class PruebaAPI {
     public static void main(String[] args) {
         try {
-            String url = "https://v6.exchangerate-api.com/v6/b5d62ef630da00408bb895e8/latest/USD";
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String json = response.body();
-
-            Gson gson = new Gson();
-            ExchangeResponse exchange = gson.fromJson(json, ExchangeResponse.class);
-
             Scanner scanner = new Scanner(System.in);
+            HttpClient client = HttpClient.newHttpClient();
 
-            while (true) {
-                System.out.println("🔹 Ingresa el código de la moneda que deseas consultar (o escribe 'salir' para terminar): ");
-                String codigoMoneda = scanner.nextLine().toUpperCase();
+            System.out.println("🌍 ¿Qué API deseas usar?");
+            System.out.println("1️⃣ ExchangeRate-API (monedas tradicionales)");
+            System.out.println("2️⃣ CoinGecko (criptomonedas y algunas fiat)");
+            System.out.print("Ingresa 1 o 2: ");
+            String opcion = scanner.nextLine();
 
-                if (codigoMoneda.equals("SALIR")) {
-                    System.out.println("👋 ¡Gracias por usar el conversor! Hasta luego.");
-                    break;
-                }
+            if (opcion.equals("1")) {
+                // ---------------- API ExchangeRate ----------------
+                String url = "https://v6.exchangerate-api.com/v6/b5d62ef630da00408bb895e8/latest/USD";
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .build();
 
-                Double tasa = exchange.getConversion_rates().get(codigoMoneda);
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                String json = response.body();
 
-                if (tasa != null) {
-                    System.out.println("✅ La tasa de cambio de " + codigoMoneda + " es: " + tasa);
-                    System.out.println("🔹 Ingresa la cantidad de USD que deseas convertir a " + codigoMoneda + ":");
-                    double cantidadUSD = scanner.nextDouble();
-                    scanner.nextLine(); // limpiar el salto de línea
+                System.out.println("\n✅ Respuesta de ExchangeRate-API:");
+                System.out.println(json);
 
-                    double resultado = cantidadUSD * tasa;
-                    System.out.println("💰 " + cantidadUSD + " USD equivalen a " + resultado + " " + codigoMoneda);
+                // Aquí puedes continuar con parseo y conversiones
 
-                    // Formatear fecha y hora actual
-                    LocalDateTime ahora = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    String fechaHora = ahora.format(formatter);
+            } else if (opcion.equals("2")) {
+                // ---------------- API CoinGecko ----------------
+                String urlGecko = "https://api.coingecko.com/api/v3/exchange_rates";
+                HttpRequest requestGecko = HttpRequest.newBuilder()
+                        .uri(URI.create(urlGecko))
+                        .build();
 
-                    // Guardar en el archivo tasas.txt
-                    FileWriter writer = new FileWriter("tasas.txt", true); // true para añadir al final
-                    writer.write("\n==============================\n");
-                    writer.write("🕒 Fecha y hora: " + fechaHora + "\n");
-                    writer.write("Base: " + exchange.getBase_code() + "\n");
-                    writer.write("Moneda elegida: " + codigoMoneda + "\n");
-                    writer.write("Tasa de cambio: " + tasa + "\n");
-                    writer.write("Cantidad de USD: " + cantidadUSD + "\n");
-                    writer.write("Total convertido: " + resultado + " " + codigoMoneda + "\n");
-                    writer.write("----- Otras tasas importantes -----\n");
-                    writer.write("CLP: " + exchange.getConversion_rates().get("CLP") + "\n");
-                    writer.write("EUR: " + exchange.getConversion_rates().get("EUR") + "\n");
-                    writer.write("PEN: " + exchange.getConversion_rates().get("PEN") + "\n");
-                    writer.write("JPY: " + exchange.getConversion_rates().get("JPY") + "\n");
-                    writer.write("MXN: " + exchange.getConversion_rates().get("MXN") + "\n");
-                    writer.write("GBP: " + exchange.getConversion_rates().get("GBP") + "\n");
-                    writer.write("ARS: " + exchange.getConversion_rates().get("ARS") + "\n");
-                    writer.write("BRL: " + exchange.getConversion_rates().get("BRL") + "\n");
-                    writer.write("CAD: " + exchange.getConversion_rates().get("CAD") + "\n");
-                    writer.write("CHF: " + exchange.getConversion_rates().get("CHF") + "\n");
-                    writer.write("==============================\n");
-                    writer.close();
+                HttpResponse<String> responseGecko = client.send(requestGecko, HttpResponse.BodyHandlers.ofString());
+                String jsonGecko = responseGecko.body();
 
-                    System.out.println("✅ Datos guardados en tasas.txt");
-                } else {
-                    System.out.println("⚠️ Moneda no encontrada. Intenta de nuevo.");
-                }
+                System.out.println("\n✅ Respuesta de CoinGecko:");
+                System.out.println(jsonGecko);
+
+                // Aquí puedes continuar con parseo y mostrar criptos
+
+            } else {
+                System.out.println("⚠️ Opción no válida. Ejecuta de nuevo y elige 1 o 2.");
             }
 
             scanner.close();
-
         } catch (Exception e) {
-            System.out.println("Ocurrió un error: " + e.getMessage());
+            System.out.println("❌ Ocurrió un error: " + e.getMessage());
         }
     }
 }
