@@ -47,3 +47,23 @@ BRL: 5.5542
 CAD: 1.3689
 CHF: 0.7966
 ==============================
+
+==============================
+🕒 Fecha y hora: 2025-07-13 20:13:54
+Base: USD
+Moneda elegida: CLP
+Tasa de cambio: 954.8084
+Cantidad de USD: 10.0
+Total convertido: 9548.084 CLP
+----- Otras tasas importantes -----
+CLP: 954.8084
+EUR: 0.8563
+PEN: 3.5533
+JPY: 147.2361
+MXN: 18.6751
+GBP: 0.7416
+ARS: 1261.58
+BRL: 5.5564
+CAD: 1.369
+CHF: 0.7969
+==============================

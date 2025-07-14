@@ -46,12 +46,13 @@ public class PruebaAPI {
                     double resultado = cantidadUSD * tasa;
                     System.out.println("💰 " + cantidadUSD + " USD equivalen a " + resultado + " " + codigoMoneda);
 
-                    // 🕒 Guardar en el archivo tasas.txt con fecha y más monedas
+                    // Formatear fecha y hora actual
                     LocalDateTime ahora = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     String fechaHora = ahora.format(formatter);
 
-                    FileWriter writer = new FileWriter("tasas.txt", true); // true para agregar
+                    // Guardar en el archivo tasas.txt
+                    FileWriter writer = new FileWriter("tasas.txt", true); // true para añadir al final
                     writer.write("\n==============================\n");
                     writer.write("🕒 Fecha y hora: " + fechaHora + "\n");
                     writer.write("Base: " + exchange.getBase_code() + "\n");
