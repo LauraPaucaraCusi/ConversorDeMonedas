@@ -1,59 +1,87 @@
 # 💱 Conversor de Monedas en Java
 
-Este proyecto en Java permite convertir montos desde USD a diferentes monedas, consumiendo datos en tiempo real desde la **ExchangeRate-API**.  
-Además, guarda un historial detallado de las conversiones realizadas, incluyendo la fecha y hora exactas.
+Aplicación de consola en Java para convertir montos entre **cualquier moneda de origen y cualquier moneda de destino** usando tasas actualizadas de **ExchangeRate-API**.
 
 ---
 
 ## ✨ Funcionalidades
 
-✅ Consulta tasas de cambio actualizadas desde ExchangeRate-API.  
-✅ Conversión de montos ingresados en USD a otras monedas elegidas.  
-✅ Guarda un historial en `tasas.txt` con:
-- Fecha y hora de la conversión.
-- Moneda seleccionada y tasa usada.
-- Total convertido.
-- Otras tasas de interés (EUR, PEN, JPY, MXN, etc.).  
-  ✅ Presentación clara, ordenada y fácil de leer.
+✅ Conversión universal (ejemplo: USD → CLP, EUR → MXN, PEN → JPY, etc.).  
+✅ Consulta en tiempo real desde ExchangeRate-API con URL dinámica por moneda base.  
+✅ Registro de cada conversión en `tasas.txt` con fecha, monto, tasa y resultado.  
+✅ Código organizado en clases separadas para un diseño más limpio y mantenible.
+
+---
+
+## 🧱 Estructura del proyecto
+
+- `Main.java`: punto de entrada e interacción por consola.
+- `ConsultaAPI.java`: conexión HTTP, lectura de `API_KEY` y consumo de la API.
+- `GeneradorDeArchivo.java`: persistencia del historial de conversiones.
+- `ExchangeResponse.java`: mapeo del JSON recibido.
 
 ---
 
 ## 📦 Requisitos
 
 - Java 11 o superior.
-- Biblioteca **Gson** para procesar JSON (`gson-2.10.1.jar` incluida en `/lib`).
-- Conexión a Internet para consultar la API.
+- Biblioteca **Gson** (`lib/gson-2.10.1.jar`).
+- Conexión a Internet.
+- API key válida de ExchangeRate-API.
 
 ---
 
-## ▶️ Cómo ejecutar
+## ⚙️ Configuración
 
-1️⃣ Clonar o descargar este repositorio.  
-2️⃣ Abrir el proyecto en **IntelliJ IDEA** u otro IDE compatible.  
-3️⃣ Ejecutar la clase `PruebaAPI.java`.  
-4️⃣ Seguir las instrucciones por consola:
-- Ingresar el código de la moneda (ejemplo: CLP, EUR, MXN, etc.).
-- Ingresar la cantidad en USD para convertir.
-- Ver en consola el resultado y el historial actualizado en `tasas.txt`.
+1. Crea/edita el archivo `config.properties` en la raíz del proyecto.
+2. Agrega tu clave:
 
----
+```properties
+API_KEY=tu_api_key_real
+```
 
-## 📌 Detalles técnicos
-
-- Se usa la API gratuita de ExchangeRate-API:  
-  `https://v6.exchangerate-api.com/v6/tu_api_key_aqui/latest/USD`
-- Historial guardado con marcas de tiempo usando `java.time.LocalDateTime`.
-- Manejo de datos JSON gracias a **Gson**.
+> La aplicación leerá automáticamente esta clave al iniciar.
 
 ---
 
-## 👩‍💻 Autor
+## ▶️ Ejecución
 
-Laura Paucara  
-🔗 [Mi GitHub](https://github.com/LauraPaucaraCusi)
+1. Compila:
 
-Desarrollado como parte del **Desafío Alura Latam**.
+```bash
+javac -cp "lib/gson-2.10.1.jar" src/*.java
+```
+
+2. Ejecuta:
+
+```bash
+java -cp "src:lib/gson-2.10.1.jar" Main
+```
+
+3. En consola, ingresa:
+   - Moneda de origen (por ejemplo `USD`).
+   - Moneda de destino (por ejemplo `EUR`).
+   - Monto a convertir.
+
+Escribe `SALIR` para terminar.
 
 ---
 
-⭐ ¡Gracias por revisar este proyecto!
+## 🔐 Seguridad
+
+Este proyecto **no hardcodea** la clave de API dentro del código fuente.
+
+- Se usa `config.properties` para separar secretos de la lógica del programa.
+- `.gitignore` incluye `config.properties`, evitando subir credenciales por error a GitHub.
+
+Este enfoque reduce riesgos de exposición de claves y facilita cambiar credenciales entre entornos.
+
+---
+
+## 📌 Nota sobre la API
+
+La URL se construye dinámicamente con este formato:
+
+`https://v6.exchangerate-api.com/v6/{API_KEY}/latest/{MONEDA_BASE}`
+
+De esa forma, la moneda base cambia según la selección del usuario.
