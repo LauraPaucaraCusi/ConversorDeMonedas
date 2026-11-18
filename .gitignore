@@ -1,3 +1,11 @@
 config.properties
+.env
+.env.*
+!.env.example
+tasas.txt
 *.class
 out/
+target/
+.idea/
+.vscode/
+*.log
